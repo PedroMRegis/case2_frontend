@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import logoImg from '@/assets/logo.png';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <HeaderContainer>
       <Logo src={logoImg} alt="LinguaLab" />
-      <LoginButton>Login</LoginButton>
+      <LoginButton as={Link} to="/login">Login</LoginButton>
     </HeaderContainer>
   );
 };

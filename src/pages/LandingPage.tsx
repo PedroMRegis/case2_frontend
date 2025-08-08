@@ -3,8 +3,15 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import bannerImage from '@/assets/banner1.png';
 import featureImg from '@/assets/feature.png';
+import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+
+  const handlePlanSelection = (planType: 'individual' | 'grupo') => {
+    navigate(`/cadastro?plano=${planType}`);
+  };
+
   return (
     <>
       <Header />
@@ -20,7 +27,7 @@ const LandingPage = () => {
               Metodologia prática para você se comunicar<br />
               com confiança no ambiente corporativo
             </BannerSubtitle>
-            <BannerButton>Conheça nossos planos</BannerButton>
+            <BannerButton href="#plans">Conheça nossos planos</BannerButton>
           </Text>
           <ImageWrapper>
             <BannerImage src={bannerImage} alt="Colaboradores usando laptop" />
@@ -78,7 +85,7 @@ const LandingPage = () => {
               preparando você para apresentar, negociar e liderar com confiança
               em qualquer idioma.
             </FeatureDescription>
-            <FeatureButton>Conheça nossos planos</FeatureButton>
+            <FeatureButton href="#plans">Conheça nossos planos</FeatureButton>
           </FeatureText>
         </FeatureContent>
       </FeatureSection>
@@ -87,27 +94,36 @@ const LandingPage = () => {
         <SectionTitle>Conheça nossos planos</SectionTitle>
         <PlansGrid>
           <PlanCard>
-            <PlanHeader>Assinatura Individual</PlanHeader>
+            <PlanHeader>
+              <h3>Assinatura Individual</h3>
+              <p>R$ 545 <span>/mês</span></p>
+            </PlanHeader>
             <PlanBody>
               <PlanList>
                 <li>Aulas individuais</li>
-                <li>Acesso a aulas gravadas</li>
                 <li>Trilhas corporativas</li>
               </PlanList>
-              <PlanButton>Assine já!</PlanButton>
+              <PlanButton onClick={() => handlePlanSelection('individual')}>
+                Assine já!
+              </PlanButton>
             </PlanBody>
           </PlanCard>
           <PlanCard>
-            <PlanHeader>Assinatura Em Grupo</PlanHeader>
+            <PlanHeader>
+              <h3>Assinatura Em Grupo</h3>
+              <p>R$ 259 <span>/pessoa/mês </span></p>
+            </PlanHeader>
             <PlanBody>
               <PlanList>
                 <li>Aulas em grupo</li>
-                <li>Acesso a aulas gravadas</li>
                 <li>Trilhas corporativas</li>
                 <li>Preços flexíveis</li>
                 <li>Dinâmicas corporativas</li>
+                <li>Mínimo de 60 pessoas</li>
               </PlanList>
-              <PlanButton>Assine já!</PlanButton>
+              <PlanButton onClick={() => handlePlanSelection('grupo')}>
+                Assine já!
+              </PlanButton>
             </PlanBody>
           </PlanCard>
         </PlansGrid>
@@ -120,7 +136,7 @@ const LandingPage = () => {
                 <CTASubtitle>
                 Chegou a solução ideal para sua equipe multilíngue: aprenda com método e flexibilidade.
                 </CTASubtitle>
-                <CTAButton>Entre em contato!</CTAButton>
+                <CTAButton href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer">Entre em contato!</CTAButton>
             </CTAContent>
             </CTACard>
         </CTASection>
@@ -141,7 +157,7 @@ const BannerSection = styled.section`
 
 const BannerContent = styled.div`
   max-width: 1200px;
-  margin:  auto 0;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
@@ -171,7 +187,7 @@ const BannerSubtitle = styled.p`
   line-height: 1.6;
 `;
 
-const BannerButton = styled.button`
+const BannerButton = styled.a`
   background-color: #7699a8;
   color: #ffffff;
   border: none;
@@ -180,6 +196,9 @@ const BannerButton = styled.button`
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
   transition: opacity 0.2s;
 
   &:hover {
@@ -285,7 +304,7 @@ const FeatureDescription = styled.p`
   line-height: 1.6;
 `;
 
-const FeatureButton = styled.button`
+const FeatureButton = styled.a`
   background-color: #7699a8;
   color: #ffffff;
   border: none;
@@ -294,6 +313,9 @@ const FeatureButton = styled.button`
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
   align-self: center;
   transition: opacity 0.2s;
 
@@ -324,7 +346,7 @@ const PlansGrid = styled.div`
   padding: 0 1rem;
 
   @media (max-width: 768px) {
-    grid-template_COLUMNS: 1fr;
+    grid-template-columns: 1fr;
   }
 `;
 
@@ -340,10 +362,27 @@ const PlanCard = styled.div`
 const PlanHeader = styled.div`
   background: #0B5471;
   color: #ffffff;
-  padding: 1rem;
+  padding: 1.5rem 1rem;
   text-align: center;
   font-weight: 600;
   font-size: 1.125rem;
+
+  h3 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  p {
+    margin: 0.5rem 0 0;
+    font-size: 2rem;
+    font-weight: 700;
+
+    span {
+      font-size: 1rem;
+      font-weight: normal;
+      opacity: 0.9;
+    }
+  }
 `;
 
 const PlanBody = styled.div`
@@ -372,7 +411,7 @@ const PlanList = styled.ul`
   }
 `;
 
-const PlanButton = styled.button`
+const PlanButton = styled.a`
   background-color: #7699a8;
   color: #ffffff;
   border: none;
@@ -381,6 +420,9 @@ const PlanButton = styled.button`
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
   transition: opacity 0.2s;
   align-self: center;
 
@@ -399,7 +441,12 @@ const CTACard = styled.div`
   border-radius: 1rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
-  padding: 2rem;
+  padding: 4rem 2rem;
+  max-width: 1200px;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+  }
 `;
 
 const CTAContent = styled.div`
@@ -415,6 +462,10 @@ const CTATitle = styled.h2`
   font-weight: 700;
   color: #ffffff;
   text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 1.75rem;
+  }
 `;
 
 const CTASubtitle = styled.p`
@@ -422,9 +473,13 @@ const CTASubtitle = styled.p`
   line-height: 1.6;
   color: #ffffff;
   text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 1.125rem;
+  }
 `;
 
-const CTAButton = styled.button`
+const CTAButton = styled.a`
   background-color: #ffffff;
   color: #000000;
   border: none;
@@ -433,6 +488,9 @@ const CTAButton = styled.button`
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
   align-self: center;
   transition: opacity 0.2s;
 
